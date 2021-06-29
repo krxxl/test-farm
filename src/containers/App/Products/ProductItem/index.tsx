@@ -6,8 +6,10 @@ import {IProduct} from "interfaces";
 import Button from 'components/UI/Button';
 import Input from "components/UI/Form/Input";
 
+//TODO если это компонент отображения, то нужен ли его подключать к хранилищу?
 const ProductsItem: React.FC<IProduct> = observer(({product, onAddClick, onRemoveClick, onHandleChange}) => {
 
+  //TODO можно обойтись без этой проверки ? может флаг добавить наличия продукта в корзине?
   const isAdded = Cart.items.map(item => item.id).includes(product.id);
 
   return (
@@ -21,7 +23,8 @@ const ProductsItem: React.FC<IProduct> = observer(({product, onAddClick, onRemov
         </div>
         {!isAdded ? <Button onClick={() => onAddClick(product)}
                             className='product__btn'> Add to cart</Button> :
-          <>
+            //TODO использовать Fragment
+            <>
             <Button onClick={() => onRemoveClick(product.id)}
                     className='product__btn'>Del from cart</Button>
             <div className='product__quantity'>

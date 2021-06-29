@@ -94,6 +94,7 @@ class Products {
     makeAutoObservable(this);
   }
 
+
 }
 
 export default new Products();
