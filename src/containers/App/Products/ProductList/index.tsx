@@ -2,7 +2,7 @@ import React from 'react';
 import './index.scss';
 import ProductsItem from "containers/App/Products/ProductList/ProductItem";
 import {observer} from "mobx-react-lite";
-import Products from 'store';
+import Products from 'store/products';
 
 const ProductsList: React.FC = observer(() => {
   return (

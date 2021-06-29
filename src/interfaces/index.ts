@@ -1,14 +1,16 @@
 import {InputHTMLAttributes} from "react";
 
 
-export interface IcartItem {
+export interface IProductItem {
   id: number,
   title: string,
   img: string,
   price: number,
-  quantity: number,
   shopQuantity: number,
-  isAdded?: boolean
+}
+
+export interface IcartItem extends IProductItem {
+  quantity: number | undefined
 }
 
 export interface Ibutton {

@@ -1,7 +1,7 @@
 import React from 'react';
 import './index.scss';
 import {observer} from "mobx-react-lite";
-import Products from 'store';
+import Cart from 'store/cart';
 
 const Nav: React.FC = observer(() => {
   return (
@@ -24,8 +24,8 @@ const Nav: React.FC = observer(() => {
                 fill="#000000"
               />
             </svg>
-            {Products.countProducts !== 0 && (<div className="basket__counter">{Products.countProducts}</div>)}
-            {Products.sumOfProducts !== 0 && (<div className="basket__sum-counter">{Products.sumOfProducts} $</div>)}
+            {Cart.countProducts !== 0 && (<div className="basket__counter">{Cart.countProducts}</div>)}
+            {Cart.sumOfProducts !== 0 && (<div className="basket__sum-counter">{Cart.sumOfProducts} $</div>)}
           </div>
         </li>
       </ul>

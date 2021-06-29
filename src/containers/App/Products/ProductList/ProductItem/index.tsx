@@ -1,19 +1,25 @@
 import React from 'react';
 import './index.scss';
-import {IcartItem} from "interfaces";
+import {IProductItem} from "interfaces";
 import Button from 'components/UI/Button';
 import {observer} from "mobx-react-lite";
-import Products from 'store';
+import Cart from 'store/cart';
 import Input from "components/UI/Form/Input";
 
-const ProductsItem: React.FC<IcartItem> = observer((props: IcartItem) => {
-  const onBtnClick = (id: number) => {
-    Products.toggleAddToCart(id)
+const ProductsItem: React.FC<IProductItem> = observer((props: IProductItem) => {
+  const onAddClick = (item: IProductItem) => {
+    Cart.addToCart({...item, quantity: 1})
+  };
+
+  const onRemoveClick = (id: number) => {
+    Cart.removeFromCart(id)
   };
 
   const onHandleChange = (evt: React.ChangeEvent<HTMLInputElement>, id: number) => {
-    Products.addQuantity(id, +evt.target.value)
+    Cart.addQuantity(id, +evt.target.value)
   };
+
+  const isAdded = Cart.items.map(item => item.id).includes(props.id);
 
   return (
     <div className="products__item product">
@@ -24,13 +30,17 @@ const ProductsItem: React.FC<IcartItem> = observer((props: IcartItem) => {
           <p className='product__info-price'>${props.price}</p>
           <p className='product__info-quantity'><span>left in stock: </span>{props.shopQuantity}</p>
         </div>
-        <Button onClick={() => onBtnClick(props.id)}
-                className='product__btn'>{!props.isAdded ? 'Add to cart' : 'Del from cart'}</Button>
-        {props.isAdded &&
-        <div className='product__quantity'>
-          <Input value={props.quantity} placeholder='Введите количество...' onChange={(evt) => onHandleChange(evt, props.id)} min={1} max={props.shopQuantity} type='number'
-                 className='product__input'/>
-        </div>}
+        {!isAdded ? <Button onClick={() => onAddClick(props)}
+                            className='product__btn'> Add to cart</Button> :
+          <>
+            <Button onClick={() => onRemoveClick(props.id)}
+                    className='product__btn'>Del from cart</Button>
+            <div className='product__quantity'>
+              <Input placeholder='Введите количество...' onChange={(evt) => onHandleChange(evt, props.id)} min={1} max={props.shopQuantity} type='number'
+              className='product__input'/>
+            </div>
+          </>
+        }
       </div>
     </div>
   );
