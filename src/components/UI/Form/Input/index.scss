@@ -1,0 +1,22 @@
+.input {
+  position: relative;
+  font-size: 15px;
+  line-height: 18px;
+  background: #FFFFFF;
+  border: 1px solid #B1B4C5;
+  box-sizing: border-box;
+  border-radius: 3px;
+  color: #060C17;
+  width: 100%;
+  padding: 7px;
+
+  &::-webkit-input-placeholder {
+    color: #060C17;
+    opacity: 1;
+  }
+
+
+  &--error {
+    border-color: #F51515;
+  }
+}

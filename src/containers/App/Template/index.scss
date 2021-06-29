@@ -1,0 +1,11 @@
+.container {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1400px;
+  background-clip: content-box;
+  box-sizing: border-box;
+  height: 100%;
+  padding-left: 60px;
+  padding-right: 60px;
+}

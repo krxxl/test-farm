@@ -1,0 +1,29 @@
+.basket {
+  position: relative;
+  &__counter {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: orangered;
+    font-weight: bold;
+    font-size: 12px;
+    left: 100%;
+    top: -4px;
+    white-space: nowrap;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: yellow;
+  }
+  &__sum-counter {
+    position: absolute;
+    text-align: right;
+    color: orangered;
+    font-weight: bold;
+    font-size: 12px;
+    left: 100%;
+    bottom: 0px;
+    white-space: nowrap;
+  }
+}
