@@ -1,5 +1,5 @@
-import React from 'react';
 import './index.scss';
+import React from 'react';
 import Template from "containers/App/Template";
 
 const Footer: React.FC = () => {

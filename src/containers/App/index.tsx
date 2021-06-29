@@ -1,5 +1,5 @@
-import React from 'react';
 import './index.scss';
+import React from 'react';
 import Footer from "containers/App/Footer";
 import Header from "containers/App/Header";
 import Product from "containers/App/Products";

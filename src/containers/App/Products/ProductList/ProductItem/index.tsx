@@ -1,9 +1,9 @@
-import React from 'react';
 import './index.scss';
-import {IProductItem} from "interfaces";
-import Button from 'components/UI/Button';
+import React from 'react';
 import {observer} from "mobx-react-lite";
 import Cart from 'store/cart';
+import {IProductItem} from "interfaces";
+import Button from 'components/UI/Button';
 import Input from "components/UI/Form/Input";
 
 const ProductsItem: React.FC<IProductItem> = observer((props: IProductItem) => {

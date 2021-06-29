@@ -1,5 +1,5 @@
-import React from 'react';
 import './index.scss';
+import React from 'react';
 import {observer} from "mobx-react-lite";
 import Cart from 'store/cart';
 

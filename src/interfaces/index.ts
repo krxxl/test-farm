@@ -1,6 +1,5 @@
 import {InputHTMLAttributes} from "react";
 
-
 export interface IProductItem {
   id: number,
   title: string,
