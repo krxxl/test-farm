@@ -8,4 +8,10 @@
   &__title {
     margin-bottom: 20px;
   }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px -20px;
+  }
 }

@@ -1,4 +1,5 @@
 import {InputHTMLAttributes} from "react";
+import React from "react";
 
 export interface IProductItem {
   id: number,
@@ -21,4 +22,11 @@ export interface Ibutton {
 
 export interface IInputProps extends InputHTMLAttributes<HTMLInputElement>{
   className: string
+}
+
+export interface IProduct {
+  product: IProductItem,
+  onAddClick: (item: IProductItem) => void,
+  onRemoveClick: (id: number) => void,
+  onHandleChange: (evt: React.ChangeEvent<HTMLInputElement>, id: number) => void
 }
