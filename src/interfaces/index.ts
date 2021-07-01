@@ -7,6 +7,7 @@ export interface IProductItem {
   img: string,
   price: number,
   shopQuantity: number,
+  isAdded?: boolean
 }
 
 export interface IcartItem extends IProductItem {
@@ -29,4 +30,10 @@ export interface IProduct {
   onAddClick: (item: IProductItem) => void,
   onRemoveClick: (id: number) => void,
   onHandleChange: (evt: React.ChangeEvent<HTMLInputElement>, id: number) => void
+}
+
+export interface ICurrency {
+  from: string | null,
+  to: string | null,
+  amount: number | null
 }

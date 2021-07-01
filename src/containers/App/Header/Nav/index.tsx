@@ -1,9 +1,14 @@
 import './index.scss';
+
 import React from 'react';
 import {observer} from "mobx-react-lite";
-import Cart from 'store/cart';
+
+import {Cart, CurrencyStore} from 'store';
 
 const Nav: React.FC = observer(() => {
+
+  const sumInRub = Cart.sumOfProducts * (CurrencyStore.price || 0);
+
   return (
     <nav className="nav">
       <ul>
@@ -25,7 +30,7 @@ const Nav: React.FC = observer(() => {
               />
             </svg>
             {Cart.countProducts !== 0 && (<div className="basket__counter">{Cart.countProducts}</div>)}
-            {Cart.sumOfProducts !== 0 && (<div className="basket__sum-counter">{Cart.sumOfProducts} $</div>)}
+            {Cart.sumOfProducts !== 0 && (<div className="basket__sum-counter">{sumInRub.toFixed(2)} ₽</div>)}
           </div>
         </li>
       </ul>

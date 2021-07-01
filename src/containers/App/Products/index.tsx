@@ -1,13 +1,9 @@
-//TODO На всякий случай напишу:
-// Всегда сначала импортируются стили, потом React, потом Mobx, потом Store из Mobx, потом компоненты, потом хелперы
-//Отделяем переносом строк
 import './index.scss';
 
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 
 import {observer} from "mobx-react-lite";
-import Products from "store/products";
-import Cart from "store/cart";
+import {Cart, Products} from "store";
 
 import Template from "containers/App/Template";
 import ProductsItem from "containers/App/Products/ProductItem";
@@ -16,21 +12,27 @@ import {IProductItem} from "interfaces";
 
 
 const Product: React.FC = observer(() => {
- //TODO можно сделать деструктуризацию?
-  // const {addToCart}=Cart;
 
-  //TODO зависимости
+  const {addToCart, removeFromCart, addQuantity} = Cart;
+  const {setIsAdded, getProducts, items} = Products;
+
   const onAddClick = useCallback((item: IProductItem) => {
-    Cart.addToCart({...item, quantity: 1})
-  }, []);
-  //TODO зависимости
+    addToCart({...item, quantity: 1});
+    setIsAdded(item.id);
+  }, [addToCart, setIsAdded]);
+
   const onRemoveClick = useCallback((id: number) => {
-    Cart.removeFromCart(id)
-  }, []);
-  //TODO зависимости
+    removeFromCart(id);
+    setIsAdded(id);
+  }, [removeFromCart, setIsAdded]);
+
   const onHandleChange =  useCallback((evt: React.ChangeEvent<HTMLInputElement>, id: number) => {
-    Cart.addQuantity(id, +evt.target.value)
-  }, []);
+    addQuantity(id, +evt.target.value)
+  }, [addQuantity]);
+
+  useEffect(()=> {
+    getProducts();
+  }, [getProducts]);
 
   return (
     <section className="products">
@@ -38,13 +40,14 @@ const Product: React.FC = observer(() => {
         <Template>
           <h2 className="products__title title-h2">Товары:</h2>
           <ul className="products__list">
-            {/*TODO если пришел пустой массив ?*/}
-            {Products.items?.map(item => {
+            {items?.map(item => {
               return (
                 <ProductsItem key={item.id} product={item}
                               onAddClick={onAddClick}
                               onRemoveClick={onRemoveClick}
-                              onHandleChange={onHandleChange}/>
+                              onHandleChange={onHandleChange}
+
+                />
               )
             })}
           </ul>

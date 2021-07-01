@@ -2,10 +2,13 @@ import { makeAutoObservable } from 'mobx';
 import {IcartItem} from "interfaces";
 
 class Cart {
-  items: Array<IcartItem> = []
+  items: Array<IcartItem> = [];
 
   constructor() {
     makeAutoObservable(this);
+    this.addToCart = this.addToCart.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
+    this.addQuantity = this.addQuantity.bind(this);
   }
 
   addToCart(item: IcartItem): void {
