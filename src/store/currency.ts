@@ -1,9 +1,11 @@
 import {makeAutoObservable} from 'mobx';
 import getCurrencyConverterRequest from "api/currency";
+import {requestWrapper} from 'api';
 
 
 class CurrencyStore {
   price: number | null = null;
+  error: any = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -11,13 +13,15 @@ class CurrencyStore {
   }
 
   async getProducts() {
-    try {
-      const response = await getCurrencyConverterRequest({from: 'USD', to: 'RUB', amount: 1});
-      // console.log(response.data.result);
-      this.price = response.data.result;
-    } catch (error) {
-      console.log(error.response.data);
-    }
+    requestWrapper({
+      request: () => getCurrencyConverterRequest({from: 'USD', to: 'RUB', amount: 1}),
+      onErrorHandler: (response) => {
+        this.error = response.data;
+      },
+      onSuccessHandler: (response) => {
+        this.price = response.data.result;
+      },
+    });
   }
 }
 

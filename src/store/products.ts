@@ -1,10 +1,11 @@
 import {makeAutoObservable} from 'mobx';
 import {IProductItem} from "interfaces";
 import getProductsRequest from 'api/products'
+import {requestWrapper} from 'api';
 
 class Products {
   items: Array<IProductItem> = [];
-
+  error: any = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -13,12 +14,15 @@ class Products {
   }
 
   async getProducts() {
-    try {
-      const response = await getProductsRequest();
-      this.items = response.data;
-    } catch (error) {
-      console.log(error.response.data);
-    }
+    requestWrapper({
+      request: () => getProductsRequest(),
+      onErrorHandler: (response) => {
+        this.error = response.data;
+      },
+      onSuccessHandler: (response) => {
+        this.items = response.data;
+      },
+    });
   }
 
   setIsAdded(id: number) {

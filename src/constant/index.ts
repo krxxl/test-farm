@@ -1,0 +1,1 @@
+export const ARRAY_SUCCES_STATUS_CODES: Array<number> = [200, 201, 202, 203, 204, 205, 206, 207, 208, 226, 300, 301, 302, 303, 304, 305, 306, 307, 308]

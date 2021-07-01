@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {ARRAY_SUCCES_STATUS_CODES} from "constant";
 
 export const api = axios.create({
   baseURL: `http://127.0.0.1:3001/`,
@@ -17,3 +18,27 @@ export const currencyApi = axios.create({
     'x-rapidapi-host': 'fixer-fixer-currency-v1.p.rapidapi.com'
   }
 });
+
+export const requestWrapper = async ({
+                                         request,
+                                         onErrorHandler,
+                                         onSuccessHandler,
+                                     }: {
+    request: any;
+    onErrorHandler: (result: any) => void;
+    onSuccessHandler: (result: any) => void;
+}): Promise<void> => {
+
+    const result = await request();
+    let getFunc: any = () => '';
+    if (
+        result.statusCode &&
+        !ARRAY_SUCCES_STATUS_CODES.includes(result.statusCode)
+    ) {
+        getFunc = () => onErrorHandler(result);
+    } else {
+        getFunc = () => onSuccessHandler(result);
+    }
+    await getFunc();
+
+};
